@@ -1,8 +1,7 @@
 # Relazione Progetto Elasticsearch - Sistema di Indicizzazione e Ricerca Film
 
 ## URL del Progetto
-**GitHub Repository**: [Inserire qui l'URL del repository GitHub del progetto]
-
+**GitHub Repository**: https://github.com/AlessandroSchmitt/elasticSearch
 ## Descrizione del Progetto
 Il progetto implementa un sistema di indicizzazione e ricerca per un dataset di film utilizzando Elasticsearch. Il sistema permette di indicizzare file di testo contenenti le trame dei film e di effettuare ricerche avanzate sui contenuti.
 
