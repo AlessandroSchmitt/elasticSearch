@@ -40,35 +40,11 @@ Per questo progetto è stato scelto l'analyzer **`english`** sia per il campo `t
 
 3. **Semplicità e Efficacia**: L'analyzer predefinito `english` fornisce un buon bilanciamento tra semplicità di configurazione e qualità dei risultati di ricerca.
 
-### Analyzer Personalizzato Precedente
-Nel codice iniziale era presente un analyzer personalizzato più complesso:
-
-```json
-{
-  "analyzer": {
-    "standard_custom": {
-      "type": "custom",
-      "tokenizer": "standard",
-      "filter": [
-        "english_possessive_stemmer",
-        "lowercase", 
-        "asciifolding",
-        "english_stop",
-        "english_stemmer"
-      ]
-    }
-  }
-}
-```
-
-Tuttavia, è stato semplificato con l'analyzer `english` predefinito che include funzionalità simili con prestazioni ottimizzate.
-
 ## Indicizzazione
 
 ### Numero di File Indicizzati
 - **Dataset originale**: Film estratti da `Movies.csv`
-- **Campionamento**: 2976 film selezionati casualmente (`random_state=42`)
-- **File creati**: 2978 file `.txt` (include il conteggio della directory)
+- **File indicizzati**: 2976 file `.txt` 
 
 ### Processo di Indicizzazione
 
@@ -121,52 +97,6 @@ Stimati per 2976 documenti:
 
 ## Query di Test
 
-### Tipologie di Query Implementate
-
-Il sistema supporta due tipi principali di ricerca:
-
-#### 1. Match Query (Ricerca Fuzzy)
-```python
-query_body = {
-    "query": {
-        "match": {
-            "field": "termine_ricerca"
-        }
-    }
-}
-```
-
-**Esempi di utilizzo**:
-- `title: Inception` - Trova film con titoli simili a "Inception"
-- `content: space adventure` - Trova film con trame contenenti concetti di avventura spaziale
-
-#### 2. Match Phrase Query (Ricerca Esatta)
-```python
-query_body = {
-    "query": {
-        "match_phrase": {
-            "field": "frase_esatta"
-        }
-    }
-}
-```
-
-**Esempi di utilizzo**:
-- `title: "A Clockwork Orange"` - Trova esattamente il film "A Clockwork Orange"
-- `content: "dream within a dream"` - Trova film con la frase esatta nella trama
-
-### Formato Input Query
-Il sistema accetta query nel formato:
-```
-campo:termine_o_frase
-```
-
-Dove:
-- **campo**: `title` o `content`
-- **termine_o_frase**: 
-  - Senza virgolette = match query (fuzzy)
-  - Con virgolette = match phrase query (esatta)
-
 ### Esempi di Query di Test
 
 1. **Ricerca per Titolo**:
@@ -181,19 +111,6 @@ Dove:
    - `content: detective murder mystery` → Film gialli/polizieschi
    - `content: "New York"` → Film ambientati a New York
 
-## Output delle Query
-Per ogni query, il sistema restituisce:
-- **Ranking dei risultati** ordinati per score di rilevanza
-- **Titolo del film**
-- **Score di matching** (valore numerico di rilevanza)
-
-Formato output:
-```
-Query results:
-0: Inception (1.2345)
-1: The Matrix (0.9876)
-2: Blade Runner (0.8765)
-```
 
 ## Considerazioni Tecniche
 
